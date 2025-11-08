@@ -4,20 +4,9 @@ import About from './components/About';
 import Menu from './components/Menu';
 import Contact from './components/Contact';
 
-function Footer() {
-  return (
-    <footer className="border-t mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600">
-        <p>© {new Date().getFullYear()} Masala Revelstoke. All rights reserved.</p>
-        <p>Made with love in Revelstoke, BC • Authentic Indian cuisine</p>
-      </div>
-    </footer>
-  );
-}
-
 export default function App() {
   return (
-    <div className="font-inter text-gray-900">
+    <div className="min-h-screen bg-black text-white font-inter">
       <Navbar />
       <main>
         <Hero />
@@ -25,7 +14,18 @@ export default function App() {
         <Menu />
         <Contact />
       </main>
-      <Footer />
+      <footer className="border-t border-white/10 bg-black/80">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-white/60">© {new Date().getFullYear()} Revelstoke Indian Kitchen. All rights reserved.</p>
+          <div className="flex items-center gap-3 text-xs text-white/50">
+            <a href="#about" className="hover:text-white">About</a>
+            <span>•</span>
+            <a href="#menu" className="hover:text-white">Menu</a>
+            <span>•</span>
+            <a href="#contact" className="hover:text-white">Contact</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

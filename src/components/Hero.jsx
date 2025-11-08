@@ -1,35 +1,74 @@
+import Spline from '@splinetool/react-spline';
+import { motion } from 'framer-motion';
+
 export default function Hero() {
   return (
-    <section id="home" className="relative pt-28 sm:pt-32">
-      <div className="absolute inset-0 -z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-100 via-white to-white pointer-events-none" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900">
-              Authentic Indian Flavours in the heart of Revelstoke
-            </h1>
-            <p className="mt-6 text-lg text-gray-700 leading-relaxed">
-              Savor rich curries, tandoor-grilled specialties, and fresh naan made to order. Warm hospitality and vibrant spices, just steps from Mackenzie Avenue.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#menu" className="inline-flex items-center rounded-md bg-amber-600 px-6 py-3 text-white font-semibold shadow hover:bg-amber-700 transition">View Menu</a>
-              <a href="#contact" className="inline-flex items-center rounded-md border border-amber-600 px-6 py-3 text-amber-700 font-semibold hover:bg-amber-50">Book a Table</a>
+    <section id="home" className="relative min-h-[90vh] flex items-center overflow-hidden bg-black">
+      <div className="absolute inset-0">
+        <Spline scene="https://prod.spline.design/jdTN4VDCXmSY8utE/scene.splinecode" style={{ width: '100%', height: '100%' }} />
+      </div>
+
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black pointer-events-none" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full grid lg:grid-cols-2 gap-10 items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="py-28 sm:py-36 lg:py-40"
+        >
+          <motion.h1
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.7 }}
+          >
+            Revelstoke Indian Kitchen
+          </motion.h1>
+          <motion.p
+            className="mt-5 text-lg text-white/80 max-w-xl"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.7 }}
+          >
+            Authentic North Indian flavors with a modern twist. Dine in, takeout, and catering in the heart of Revelstoke, BC.
+          </motion.p>
+          <motion.div
+            className="mt-8 flex flex-wrap gap-3"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.7 }}
+          >
+            <a
+              href="#menu"
+              className="inline-flex items-center rounded-full bg-amber-600 px-6 py-3 text-sm font-semibold text-white shadow hover:bg-amber-500 transition-colors"
+            >
+              Explore Menu
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
+            >
+              Book a Table
+            </a>
+          </motion.div>
+          <motion.div
+            className="mt-10 flex items-center gap-6 text-white/70"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            <div className="flex -space-x-2">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="w-9 h-9 rounded-full border border-black/40 bg-gradient-to-tr from-amber-400 to-rose-400" />
+              ))}
             </div>
-            <p className="mt-4 text-sm text-gray-500">Open daily • Dine-in • Takeout • Vegan & Gluten-free options</p>
-          </div>
-          <div className="relative">
-            <img
-              src="https://images.unsplash.com/photo-1588162621324-cb89e3580f89?q=80&w=1600&auto=format&fit=crop"
-              alt="Indian feast with curries and naan"
-              className="w-full h-[360px] sm:h-[440px] object-cover rounded-2xl shadow-xl"
-              loading="eager"
-            />
-            <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-lg p-4 hidden sm:flex flex-col gap-1">
-              <span className="text-sm font-semibold text-gray-900">Family Owned</span>
-              <span className="text-xs text-gray-600">Serving Revelstoke with love</span>
-            </div>
-          </div>
-        </div>
+            <p className="text-sm">Loved by locals • Open daily</p>
+          </motion.div>
+        </motion.div>
+
+        <div className="hidden lg:block" />
       </div>
     </section>
   );

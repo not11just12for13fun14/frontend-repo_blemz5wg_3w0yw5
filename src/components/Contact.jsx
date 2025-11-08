@@ -1,55 +1,101 @@
+import { motion } from 'framer-motion';
+import { MapPin, Phone, Mail } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Contact() {
-  const [status, setStatus] = useState('');
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [sent, setSent] = useState(false);
 
-  const handleSubmit = (e) => {
+  const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const onSubmit = (e) => {
     e.preventDefault();
-    setStatus('Thanks! We\'ll get back to you shortly.');
-    e.currentTarget.reset();
+    setSent(true);
+    setTimeout(() => setSent(false), 3000);
+    setForm({ name: '', email: '', message: '' });
   };
 
   return (
-    <section id="contact" className="py-20">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-10">
+    <section id="contact" className="relative bg-neutral-950 text-white py-20 sm:py-28">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="grid lg:grid-cols-2 gap-10"
+        >
           <div>
-            <h2 className="text-3xl font-bold text-gray-900">Contact Us</h2>
-            <p className="mt-3 text-gray-700">Located in downtown Revelstoke, BC.</p>
-            <div className="mt-6 space-y-2 text-gray-800">
-              <p><span className="font-semibold">Address:</span> 123 Mackenzie Ave, Revelstoke, BC</p>
-              <p><span className="font-semibold">Phone:</span> (250) 555-0147</p>
-              <p><span className="font-semibold">Hours:</span> Mon–Sun: 11:30am – 9:30pm</p>
+            <h2 className="text-3xl sm:text-4xl font-bold">Visit & Contact</h2>
+            <p className="mt-3 text-white/70">Downtown Revelstoke — cozy dining room and friendly service.</p>
+
+            <ul className="mt-6 space-y-3 text-white/80">
+              <li className="flex items-center gap-3"><MapPin size={18} className="text-amber-400" /> 123 Mackenzie Ave, Revelstoke, BC</li>
+              <li className="flex items-center gap-3"><Phone size={18} className="text-amber-400" /> (250) 555-0123</li>
+              <li className="flex items-center gap-3"><Mail size={18} className="text-amber-400" /> hello@revelstokeindian.ca</li>
+            </ul>
+
+            <div className="mt-6 aspect-video rounded-xl overflow-hidden border border-white/10">
+              <iframe
+                title="Map of Revelstoke Indian Kitchen"
+                src="https://www.google.com/maps?q=Revelstoke%2C%20BC&output=embed"
+                className="w-full h-full"
+                loading="lazy"
+              />
             </div>
-            <iframe
-              title="map"
-              className="mt-6 w-full h-56 rounded-xl border"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=Revelstoke,+BC&output=embed"
-            />
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border p-6">
-            <h3 className="text-xl font-semibold text-gray-900">Send a message</h3>
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Name</label>
-                <input required name="name" type="text" className="mt-1 w-full rounded-md border-gray-300 focus:ring-amber-600 focus:border-amber-600" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Email</label>
-                <input required name="email" type="email" className="mt-1 w-full rounded-md border-gray-300 focus:ring-amber-600 focus:border-amber-600" />
-              </div>
-              <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Message</label>
-                <textarea required name="message" rows={4} className="mt-1 w-full rounded-md border-gray-300 focus:ring-amber-600 focus:border-amber-600" />
-              </div>
+          <form onSubmit={onSubmit} className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-6">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <label className="block">
+                <span className="text-sm text-white/70">Name</span>
+                <input
+                  aria-label="Name"
+                  name="name"
+                  value={form.name}
+                  onChange={onChange}
+                  required
+                  className="mt-1 w-full rounded-lg bg-black/40 border border-white/10 px-3 py-2 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  placeholder="Your name"
+                />
+              </label>
+              <label className="block">
+                <span className="text-sm text-white/70">Email</span>
+                <input
+                  aria-label="Email"
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={onChange}
+                  required
+                  className="mt-1 w-full rounded-lg bg-black/40 border border-white/10 px-3 py-2 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  placeholder="you@example.com"
+                />
+              </label>
             </div>
-            <button type="submit" className="mt-4 inline-flex items-center rounded-md bg-amber-600 px-5 py-2.5 text-white font-semibold hover:bg-amber-700">Submit</button>
-            {status && <p className="mt-3 text-green-700 font-medium">{status}</p>}
+            <label className="block mt-4">
+              <span className="text-sm text-white/70">Message</span>
+              <textarea
+                aria-label="Message"
+                name="message"
+                value={form.message}
+                onChange={onChange}
+                rows={5}
+                required
+                className="mt-1 w-full rounded-lg bg-black/40 border border-white/10 px-3 py-2 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                placeholder="How can we help?"
+              />
+            </label>
+            <div className="mt-6 flex items-center gap-3">
+              <button
+                type="submit"
+                className="inline-flex items-center rounded-full bg-amber-600 px-6 py-3 text-sm font-semibold text-white shadow hover:bg-amber-500 transition-colors"
+              >
+                Send Message
+              </button>
+              {sent && <span className="text-sm text-amber-400">Thanks! We'll be in touch.</span>}
+            </div>
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

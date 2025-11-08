@@ -1,57 +1,68 @@
-const sections = [
+import { motion } from 'framer-motion';
+
+const items = [
   {
-    title: "Starters",
-    items: [
-      { name: "Vegetable Samosa", desc: "Crispy pastry stuffed with spiced potatoes & peas", price: "$7" },
-      { name: "Onion Bhaji", desc: "Golden-fried onion fritters with tamarind chutney", price: "$8" },
+    category: 'Starters',
+    dishes: [
+      { name: 'Samosa Chaat', price: 12, desc: 'Crispy samosa, chickpeas, yogurt, chutneys.' },
+      { name: 'Tandoori Chicken Tikka', price: 16, desc: 'Yogurt-marinated chicken, mint chutney.' },
     ],
   },
   {
-    title: "Mains",
-    items: [
-      { name: "Butter Chicken", desc: "Tandoor chicken in a creamy tomato sauce", price: "$19" },
-      { name: "Chana Masala (V)", desc: "Chickpeas simmered with onions, tomatoes & spices", price: "$16" },
-      { name: "Lamb Rogan Josh", desc: "Kashmiri-style curry with tender lamb", price: "$22" },
+    category: 'Mains',
+    dishes: [
+      { name: 'Butter Chicken', price: 21, desc: 'Creamy tomato sauce, fenugreek, cream.' },
+      { name: 'Palak Paneer', price: 19, desc: 'Spinach gravy, cottage cheese, spices.' },
     ],
   },
   {
-    title: "From the Tandoor",
-    items: [
-      { name: "Garlic Naan", desc: "Leavened bread with garlic & cilantro", price: "$4" },
-      { name: "Paneer Tikka", desc: "Marinated cottage cheese grilled to perfection", price: "$17" },
-    ],
-  },
-  {
-    title: "Sides & Sweets",
-    items: [
-      { name: "Basmati Rice", desc: "Steamed fragrant rice", price: "$4" },
-      { name: "Gulab Jamun", desc: "Warm milk-solid dumplings in cardamom syrup", price: "$7" },
+    category: 'Biryani & Breads',
+    dishes: [
+      { name: 'Hyderabadi Biryani', price: 22, desc: 'Fragrant basmati, saffron, caramelized onions.' },
+      { name: 'Garlic Naan', price: 5, desc: 'Tandoor-baked, garlic butter, cilantro.' },
     ],
   },
 ];
 
 export default function Menu() {
   return (
-    <section id="menu" className="py-20 bg-amber-50/60">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-gray-900 text-center">Menu Highlights</h2>
-        <p className="mt-3 text-gray-600 text-center">A taste of our guest favourites. Full menu available in-house.</p>
-        <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sections.map((section) => (
-            <div key={section.title} className="bg-white rounded-xl shadow-sm border border-amber-100 p-5">
-              <h3 className="text-xl font-semibold text-amber-800">{section.title}</h3>
+    <section id="menu" className="relative bg-neutral-950 text-white py-20 sm:py-28">
+      <div className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_20%,rgba(251,191,36,0.07),transparent_60%)]" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="text-center"
+        >
+          <h2 className="text-3xl sm:text-4xl font-bold">Menu Highlights</h2>
+          <p className="mt-3 text-white/70">Curated favorites, available for dine-in and takeout.</p>
+        </motion.div>
+
+        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {items.map((group, i) => (
+            <motion.div
+              key={group.category}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: i * 0.05 }}
+              className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-5"
+            >
+              <h3 className="font-semibold text-amber-400">{group.category}</h3>
               <ul className="mt-4 space-y-4">
-                {section.items.map((item) => (
-                  <li key={item.name} className="flex items-start justify-between gap-4">
+                {group.dishes.map((d) => (
+                  <li key={d.name} className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="font-medium text-gray-900">{item.name}</p>
-                      <p className="text-sm text-gray-600">{item.desc}</p>
+                      <p className="font-medium">{d.name}</p>
+                      <p className="text-sm text-white/70">{d.desc}</p>
                     </div>
-                    <span className="text-amber-700 font-semibold whitespace-nowrap">{item.price}</span>
+                    <span className="text-amber-400 font-semibold">${d.price}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
